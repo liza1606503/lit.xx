@@ -1,139 +1,218 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useCurrentUser } from "@/components/site/use-current-user";
+import {
+  IconFeed,
+  IconContext,
+  IconText,
+  IconTelegraph,
+  IconExhibitions,
+  IconAbout,
+  IconUser,
+  IconLogout,
+  IconLogin,
+  IconMenu,
+  IconClose,
+  IconTrophy,
+} from "@/components/site/sharp-icons";
+import { signOut } from "next-auth/react";
 
-export type SectionId =
-  | "hero"
-  | "context"
-  | "text"
-  | "telegraph"
-  | "exhibitions"
-  | "quiz"
-  | "about";
-
-interface NavItem {
-  id: SectionId;
-  label: string;
-  cadence?: string;
-}
-
-const navItems: NavItem[] = [
-  { id: "context", label: "В контексте", cadence: "3–5 / нед." },
-  { id: "text", label: "В тексте", cadence: "1 / нед." },
-  { id: "telegraph", label: "В телеграфе", cadence: "1 / нед." },
-  { id: "exhibitions", label: "Выставки" },
-  { id: "quiz", label: "Квиз" },
-  { id: "about", label: "О проекте" },
+const navItems = [
+  { href: "/feed", label: "Лента", Icon: IconFeed },
+  { href: "/context", label: "В контексте", Icon: IconContext },
+  { href: "/text", label: "В тексте", Icon: IconText },
+  { href: "/telegraph", label: "В телеграфе", Icon: IconTelegraph },
+  { href: "/exhibitions", label: "Выставки", Icon: IconExhibitions },
+  { href: "/about", label: "О платформе", Icon: IconAbout },
 ];
 
-export function SiteHeader({
-  active,
-  onNavigate,
-}: {
-  active: SectionId;
-  onNavigate: (id: SectionId) => void;
-}) {
-  const [scrolled, setScrolled] = useState(false);
+export function SiteHeader() {
+  const pathname = usePathname();
+  const { user, loading } = useCurrentUser();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleClick = (id: SectionId) => {
-    onNavigate(id);
-    setMobileOpen(false);
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 transition-shadow",
-        scrolled && "shadow-sm",
-      )}
-    >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
-        {/* Логотип / название */}
-        <button
-          onClick={() => handleClick("hero")}
-          className="group flex items-center gap-3"
-          aria-label="На главную"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary font-display text-lg text-primary-foreground">
+    <header className="sticky top-0 z-50 w-full border-b-2 border-primary bg-background">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-6">
+        {/* Логотип */}
+        <Link href="/" className="flex items-center gap-3" aria-label="На главную">
+          <span className="flex h-9 w-9 items-center justify-center bg-primary font-display text-xl text-primary-foreground">
             С
           </span>
-          <span className="hidden flex-col items-start leading-tight sm:flex">
-            <span className="font-display text-base text-foreground">
+          <span className="hidden flex-col leading-none sm:flex">
+            <span className="font-display text-lg leading-none text-foreground">
               Слово и эпоха
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
-              1940–1970-е
+            <span className="mt-0.5 font-sans-ui text-[10px] uppercase tracking-widest text-muted-foreground">
+              1940 — 1970-е
             </span>
           </span>
-        </button>
+        </Link>
 
         {/* Десктоп-навигация */}
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Главное меню">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleClick(item.id)}
+        <nav
+          className="hidden items-stretch md:flex"
+          aria-label="Главное меню"
+        >
+          {navItems.map(({ href, label, Icon }) => (
+            <Link
+              key={href}
+              href={href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                active === item.id
+                "flex items-center gap-1.5 border-r border-border px-3 py-2 font-sans-ui text-sm font-medium transition-colors first:border-l",
+                isActive(href)
                   ? "bg-primary text-primary-foreground"
-                  : "text-foreground/80 hover:bg-secondary hover:text-foreground",
+                  : "text-foreground hover:bg-secondary",
               )}
             >
-              {item.label}
-            </button>
+              <Icon size={14} className="shrink-0" />
+              {label}
+            </Link>
           ))}
         </nav>
 
-        {/* Мобильное меню — кнопка */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="md:hidden"
-          onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Открыть меню"
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? "Закрыть" : "Разделы"}
-        </Button>
-      </div>
-
-      {/* Мобильное меню — разворачивающаяся панель */}
-      {mobileOpen && (
-        <nav
-          className="border-t border-border/60 bg-background px-4 py-3 md:hidden"
-          aria-label="Мобильное меню"
-        >
-          <div className="grid grid-cols-1 gap-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleClick(item.id)}
+        {/* Правая часть — пользователь */}
+        <div className="hidden items-center gap-2 md:flex">
+          <Link
+            href="/leaderboard"
+            className={cn(
+              "flex items-center gap-1.5 border border-border px-2.5 py-1.5 font-sans-ui text-xs font-medium transition-colors hover:border-primary",
+              isActive("/leaderboard") && "border-primary bg-secondary",
+            )}
+          >
+            <IconTrophy size={14} />
+            Рейтинг
+          </Link>
+          {!loading && user ? (
+            <>
+              <Link
+                href="/profile"
                 className={cn(
-                  "flex items-center justify-between rounded-md px-3 py-2 text-left text-sm font-medium transition-colors",
-                  active === item.id
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground/80 hover:bg-secondary",
+                  "flex items-center gap-2 border border-border px-2.5 py-1.5 font-sans-ui text-xs font-medium transition-colors hover:border-primary",
+                  isActive("/profile") && "border-primary bg-secondary",
                 )}
               >
-                <span>{item.label}</span>
-                {item.cadence && (
-                  <span className="text-[10px] uppercase tracking-wide opacity-70">
-                    {item.cadence}
-                  </span>
+                <IconUser size={14} />
+                <span className="max-w-[120px] truncate">{user.name}</span>
+                <span className="tag-stamp tag-stamp-filled !px-1.5 !py-0 !text-[10px]">
+                  {user.totalPoints}
+                </span>
+              </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-2"
+                onClick={() => signOut({ callbackUrl: "/" })}
+                aria-label="Выйти"
+              >
+                <IconLogout size={16} />
+              </Button>
+            </>
+          ) : !loading ? (
+            <Link
+              href="/auth/login"
+              className="flex items-center gap-1.5 bg-primary px-3 py-1.5 font-sans-ui text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              <IconLogin size={14} />
+              Войти
+            </Link>
+          ) : null}
+        </div>
+
+        {/* Мобильное меню */}
+        <button
+          className="flex h-9 w-9 items-center justify-center border border-primary bg-primary text-primary-foreground md:hidden"
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <IconClose size={18} /> : <IconMenu size={18} />}
+        </button>
+      </div>
+
+      {/* Мобильное меню */}
+      {mobileOpen && (
+        <nav
+          className="border-t border-border bg-background md:hidden"
+          aria-label="Мобильное меню"
+        >
+          <div className="mx-auto max-w-7xl px-4 py-3">
+            <div className="grid grid-cols-1">
+              {navItems.map(({ href, label, Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "flex items-center gap-2 border border-b-0 border-border px-3 py-2.5 font-sans-ui text-sm font-medium first:border-t",
+                    isActive(href)
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground",
+                  )}
+                >
+                  <Icon size={16} />
+                  {label}
+                </Link>
+              ))}
+              <Link
+                href="/leaderboard"
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "flex items-center gap-2 border border-b-0 border-border px-3 py-2.5 font-sans-ui text-sm font-medium",
+                  isActive("/leaderboard")
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground",
                 )}
-              </button>
-            ))}
+              >
+                <IconTrophy size={16} />
+                Рейтинг активности
+              </Link>
+              <div className="border border-border">
+                {!loading && user ? (
+                  <div className="grid grid-cols-2">
+                    <Link
+                      href="/profile"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 border-r border-border px-3 py-2.5 font-sans-ui text-sm font-medium"
+                    >
+                      <IconUser size={16} />
+                      <span className="truncate">{user.name}</span>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        signOut({ callbackUrl: "/" });
+                      }}
+                      className="flex items-center gap-2 px-3 py-2.5 font-sans-ui text-sm font-medium"
+                    >
+                      <IconLogout size={16} />
+                      Выйти
+                    </button>
+                  </div>
+                ) : (
+                  !loading && (
+                    <Link
+                      href="/auth/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2.5 font-sans-ui text-sm font-medium"
+                    >
+                      <IconLogin size={16} />
+                      Войти / Зарегистрироваться
+                    </Link>
+                  )
+                )}
+              </div>
+            </div>
           </div>
         </nav>
       )}

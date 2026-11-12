@@ -6,7 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-pt-sans);
+  --font-serif: var(--font-pt-serif);
+  --font-display: var(--font-ruslan);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -44,7 +46,9 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  /* Угловатый дизайн — радиус 0 */
+  --radius: 0px;
+
   /* Бумажный фон */
   --background: oklch(0.97 0.012 75);
   --foreground: oklch(0.18 0.02 35);
@@ -57,74 +61,73 @@
   --popover-foreground: oklch(0.18 0.02 35);
 
   /* Бордовый — цвет эстрадной поэзии, типографской краски */
-  --primary: oklch(0.38 0.13 25);
+  --primary: oklch(0.36 0.14 25);
   --primary-foreground: oklch(0.97 0.012 75);
 
   /* Приглушённый бежевый */
-  --secondary: oklch(0.93 0.02 70);
-  --secondary-foreground: oklch(0.25 0.03 35);
+  --secondary: oklch(0.92 0.022 70);
+  --secondary-foreground: oklch(0.22 0.03 35);
 
   --muted: oklch(0.93 0.015 70);
-  --muted-foreground: oklch(0.48 0.03 50);
+  --muted-foreground: oklch(0.45 0.025 50);
 
   /* Охристо-золотой — для тихой лирики и меток */
-  --accent: oklch(0.72 0.11 65);
+  --accent: oklch(0.68 0.13 65);
   --accent-foreground: oklch(0.18 0.02 35);
 
   --destructive: oklch(0.55 0.22 25);
-  --border: oklch(0.86 0.02 60);
-  --input: oklch(0.86 0.02 60);
-  --ring: oklch(0.38 0.13 25);
+  --border: oklch(0.84 0.022 60);
+  --input: oklch(0.84 0.022 60);
+  --ring: oklch(0.36 0.14 25);
 
-  /* Тёплые оттенки для диаграмм */
-  --chart-1: oklch(0.38 0.13 25);
-  --chart-2: oklch(0.72 0.11 65);
+  --chart-1: oklch(0.36 0.14 25);
+  --chart-2: oklch(0.68 0.13 65);
   --chart-3: oklch(0.55 0.08 35);
   --chart-4: oklch(0.65 0.05 60);
   --chart-5: oklch(0.45 0.06 50);
 
   --sidebar: oklch(0.97 0.012 75);
   --sidebar-foreground: oklch(0.18 0.02 35);
-  --sidebar-primary: oklch(0.38 0.13 25);
+  --sidebar-primary: oklch(0.36 0.14 25);
   --sidebar-primary-foreground: oklch(0.97 0.012 75);
-  --sidebar-accent: oklch(0.93 0.02 70);
-  --sidebar-accent-foreground: oklch(0.25 0.03 35);
-  --sidebar-border: oklch(0.86 0.02 60);
-  --sidebar-ring: oklch(0.38 0.13 25);
+  --sidebar-accent: oklch(0.92 0.022 70);
+  --sidebar-accent-foreground: oklch(0.22 0.03 35);
+  --sidebar-border: oklch(0.84 0.022 60);
+  --sidebar-ring: oklch(0.36 0.14 25);
 }
 
 .dark {
-  --background: oklch(0.18 0.02 35);
+  --background: oklch(0.16 0.02 35);
   --foreground: oklch(0.95 0.012 75);
-  --card: oklch(0.22 0.025 35);
+  --card: oklch(0.2 0.025 35);
   --card-foreground: oklch(0.95 0.012 75);
-  --popover: oklch(0.22 0.025 35);
+  --popover: oklch(0.2 0.025 35);
   --popover-foreground: oklch(0.95 0.012 75);
-  --primary: oklch(0.72 0.13 25);
+  --primary: oklch(0.7 0.14 25);
   --primary-foreground: oklch(0.18 0.02 35);
-  --secondary: oklch(0.28 0.03 35);
+  --secondary: oklch(0.26 0.03 35);
   --secondary-foreground: oklch(0.95 0.012 75);
-  --muted: oklch(0.28 0.03 35);
+  --muted: oklch(0.26 0.03 35);
   --muted-foreground: oklch(0.7 0.02 60);
   --accent: oklch(0.62 0.12 65);
   --accent-foreground: oklch(0.18 0.02 35);
   --destructive: oklch(0.6 0.2 25);
   --border: oklch(0.95 0.012 75 / 12%);
   --input: oklch(0.95 0.012 75 / 15%);
-  --ring: oklch(0.55 0.13 25);
-  --chart-1: oklch(0.72 0.13 25);
+  --ring: oklch(0.55 0.14 25);
+  --chart-1: oklch(0.7 0.14 25);
   --chart-2: oklch(0.62 0.12 65);
   --chart-3: oklch(0.55 0.08 35);
   --chart-4: oklch(0.65 0.05 60);
   --chart-5: oklch(0.45 0.06 50);
-  --sidebar: oklch(0.22 0.025 35);
+  --sidebar: oklch(0.2 0.025 35);
   --sidebar-foreground: oklch(0.95 0.012 75);
-  --sidebar-primary: oklch(0.72 0.13 25);
+  --sidebar-primary: oklch(0.7 0.14 25);
   --sidebar-primary-foreground: oklch(0.18 0.02 35);
-  --sidebar-accent: oklch(0.28 0.03 35);
+  --sidebar-accent: oklch(0.26 0.03 35);
   --sidebar-accent-foreground: oklch(0.95 0.012 75);
   --sidebar-border: oklch(0.95 0.012 75 / 12%);
-  --sidebar-ring: oklch(0.55 0.13 25);
+  --sidebar-ring: oklch(0.55 0.14 25);
 }
 
 @layer base {
@@ -133,50 +136,111 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-pt-serif), serif;
+    font-feature-settings: "kern", "liga";
   }
 }
 
-/* Типографика заголовков — литературный, газетный характер */
+/* Типографика */
 .font-display {
-  font-family: var(--font-geist-sans);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-ruslan), var(--font-pt-serif), serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.font-serif {
+  font-family: var(--font-pt-serif), serif;
+}
+
+.font-sans-ui {
+  font-family: var(--font-pt-sans), sans-serif;
 }
 
 /* Текстура бумаги — едва заметная сетка */
 .paper-texture {
   background-image:
-    radial-gradient(
-      circle at 25% 25%,
-      oklch(0.38 0.13 25 / 0.015) 0%,
-      transparent 50%
+    linear-gradient(
+      to right,
+      oklch(0.36 0.14 25 / 0.012) 1px,
+      transparent 1px
     ),
-    radial-gradient(
-      circle at 75% 75%,
-      oklch(0.72 0.11 65 / 0.015) 0%,
-      transparent 50%
+    linear-gradient(
+      to bottom,
+      oklch(0.36 0.14 25 / 0.012) 1px,
+      transparent 1px
     );
+  background-size: 24px 24px;
 }
 
-/* Декоративная линия в духе типографской плашки */
+/* Угловатые тени — жёсткая, без размытия */
+.shadow-sharp {
+  box-shadow: 4px 4px 0 0 var(--primary);
+}
+.shadow-sharp-sm {
+  box-shadow: 2px 2px 0 0 var(--primary);
+}
+.shadow-sharp-accent {
+  box-shadow: 4px 4px 0 0 var(--accent);
+}
+
+/* Угловатый border с двойной линией — типографская плашка */
 .rule-double {
   border-top: 3px double var(--primary);
 }
 
-/* Кастомный скроллбар */
+/* Кастомный скроллбар — острые углы */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
   background: var(--muted);
-  border-radius: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: var(--primary);
-  border-radius: 4px;
-  opacity: 0.6;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Угловатые иконки — уменьшаем толщину и сглаживание */
+.icon-sharp {
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+/* Декоративные "типографские" элементы */
+.tag-stamp {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid var(--primary);
+  font-family: var(--font-pt-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: transparent;
+}
+
+.tag-stamp-filled {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Линия-разделитель с засечкой */
+.section-divider {
+  position: relative;
+  height: 1px;
+  background: var(--border);
+}
+.section-divider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
   background: var(--primary);
 }

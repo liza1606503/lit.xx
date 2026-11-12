@@ -1,87 +1,90 @@
-"use client";
+import Link from "next/link";
 
-import type { SectionId } from "./site-header";
+const footerSections = [
+  {
+    title: "Разделы",
+    links: [
+      { href: "/feed", label: "Лента" },
+      { href: "/context", label: "В контексте" },
+      { href: "/text", label: "В тексте" },
+      { href: "/telegraph", label: "В телеграфе" },
+    ],
+  },
+  {
+    title: "Платформа",
+    links: [
+      { href: "/exhibitions", label: "Поп-ап выставки" },
+      { href: "/leaderboard", label: "Рейтинг активности" },
+      { href: "/about", label: "О платформе" },
+    ],
+  },
+  {
+    title: "Аккаунт",
+    links: [
+      { href: "/auth/login", label: "Войти" },
+      { href: "/auth/register", label: "Зарегистрироваться" },
+      { href: "/profile", label: "Профиль" },
+    ],
+  },
+];
 
-export function SiteFooter({
-  onNavigate,
-}: {
-  onNavigate: (id: SectionId) => void;
-}) {
-  const year = new Date().getFullYear();
+export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-border bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-10 md:px-6">
-        <div className="grid gap-8 md:grid-cols-12">
-          {/* Левая колонка — название и описание */}
+    <footer className="mt-auto border-t-2 border-primary bg-background">
+      <div className="mx-auto max-w-7xl px-4 py-12 md:px-6">
+        <div className="grid gap-10 md:grid-cols-12">
+          {/* Левая колонка — название */}
           <div className="md:col-span-5">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary font-display text-lg text-primary-foreground">
+            <Link href="/" className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center bg-primary font-display text-xl text-primary-foreground">
                 С
               </span>
-              <div className="flex flex-col leading-tight">
-                <span className="font-display text-base text-foreground">
+              <div className="flex flex-col leading-none">
+                <span className="font-display text-xl leading-none text-foreground">
                   Слово и эпоха
                 </span>
-                <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                  1940–1970-е
+                <span className="mt-1 font-sans-ui text-[10px] uppercase tracking-widest text-muted-foreground">
+                  1940 — 1970-е
                 </span>
               </div>
-            </div>
-            <p className="mt-4 max-w-md text-sm text-muted-foreground">
-              Образовательная платформа о литературном процессе
-              1940–1970-х годов. Посты, подкасты, статьи и поп-ап
-              выставки — одна эпоха, несколько голосов.
+            </Link>
+            <p className="mt-4 max-w-md font-serif text-sm leading-relaxed text-muted-foreground">
+              Образовательная платформа о литературном процессе 1940–1970-х
+              годов. Посты-факты, подкасты, статьи и поп-ап выставки —
+              одна эпоха, несколько голосов.
             </p>
           </div>
 
-          {/* Средняя колонка — разделы */}
-          <div className="md:col-span-4">
-            <div className="mb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Разделы
-            </div>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              {(
-                [
-                  ["context", "В контексте"],
-                  ["text", "В тексте"],
-                  ["telegraph", "В телеграфе"],
-                  ["exhibitions", "Выставки"],
-                  ["quiz", "Квиз"],
-                  ["about", "О проекте"],
-                ] as Array<[SectionId, string]>
-              ).map(([id, label]) => (
-                <button
-                  key={id}
-                  onClick={() => onNavigate(id)}
-                  className="text-left text-muted-foreground transition-colors hover:text-primary"
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Правая колонка — сроки */}
-          <div className="md:col-span-3">
-            <div className="mb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Сроки проекта
-            </div>
-            <div className="text-sm text-foreground/80">
-              ноябрь — декабрь 2026
-            </div>
-            <div className="mt-1 text-xs text-muted-foreground">
-              5–8 единиц контента в неделю
-            </div>
+          {/* Ссылки */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
+            {footerSections.map((section) => (
+              <div key={section.title}>
+                <div className="mb-3 font-sans-ui text-[10px] font-bold uppercase tracking-widest text-primary">
+                  {section.title}
+                </div>
+                <ul className="space-y-2">
+                  {section.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="font-serif text-sm text-foreground transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Нижняя строка */}
-        <div className="mt-10 flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            © {year} Проект «Слово и эпоха». Образовательная платформа о
-            литературе 1940–1970-х.
+        <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 font-sans-ui text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>© Слово и эпоха. Образовательная платформа.</span>
+          <span className="font-serif italic">
+            Сделано для тех, кто читает внимательно.
           </span>
-          <span>Сделано для тех, кто читает внимательно.</span>
         </div>
       </div>
     </footer>
