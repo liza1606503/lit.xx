@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -54,9 +55,10 @@ server.log
 /skills/
 
 # --- Проектные исключения ---
-# База данных SQLite (генерируется через prisma db push, не коммитится)
-/db/*.db
-/db/*.db-journal
+# База данных SQLite (генерируется через prisma db push, не коммитится).
+# Глобально — ловит и /db/, и prisma/db/, и любое другое расположение.
+*.db
+*.db-journal
 *.db-wal
 *.db-shm
 
