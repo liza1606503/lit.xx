@@ -45,11 +45,6 @@ export default async function LeaderboardPage() {
           <h1 className="mt-3 font-display text-5xl text-foreground md:text-6xl">
             Самые активные
           </h1>
-          <p className="mt-4 max-w-3xl font-serif text-lg leading-relaxed text-foreground/80">
-            За каждый правильный ответ в микро-тесте — один балл. Топ-50
-            участников по сумме баллов. Места обновляются в реальном
-            времени по мере прохождения тестов.
-          </p>
         </div>
       </section>
 
@@ -204,22 +199,6 @@ export default async function LeaderboardPage() {
                   })}
                 </tbody>
               </table>
-            </div>
-          )}
-
-          {!currentUser && top.length > 0 && (
-            <div className="mt-6 border-2 border-dashed border-primary/40 bg-primary/5 p-5 text-center">
-              <p className="font-serif text-base text-foreground">
-                Хотите попасть в рейтинг? Зарегистрируйтесь — и баллы за
-                микро-тесты будут сохраняться в вашем профиле.
-              </p>
-              <Link
-                href="/auth/register"
-                className="mt-3 inline-flex items-center gap-1.5 bg-primary px-4 py-2 font-sans-ui text-xs font-bold uppercase tracking-widest text-primary-foreground"
-              >
-                Создать аккаунт
-                <IconArrowRight size={14} />
-              </Link>
             </div>
           )}
         </div>

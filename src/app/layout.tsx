@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PT_Serif, PT_Sans, Ruslan_Display } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
@@ -7,24 +7,20 @@ import { SessionProvider } from "@/components/site/session-provider";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 
-const ptSerif = PT_Serif({
-  variable: "--font-pt-serif",
+// Единый строгий нейтральный гротеск — без засечек, без декоративности.
+// Весовая иерархия вместо разных семейств: 700 — заголовки, 400 — текст, 500 — UI.
+const ibmSans = IBM_Plex_Sans({
+  variable: "--font-ibm-sans",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
-const ptSans = PT_Sans({
-  variable: "--font-pt-sans",
+const ibmMono = IBM_Plex_Mono({
+  variable: "--font-ibm-mono",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-});
-
-const ruslanDisplay = Ruslan_Display({
-  variable: "--font-ruslan",
-  subsets: ["latin", "cyrillic"],
-  weight: ["400"],
+  weight: ["400", "500"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -52,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body
-        className={`${ptSerif.variable} ${ptSans.variable} ${ruslanDisplay.variable} antialiased bg-background text-foreground`}
+        className={`${ibmSans.variable} ${ibmMono.variable} antialiased bg-background text-foreground`}
       >
         <SessionProvider>
           <div className="flex min-h-screen flex-col">

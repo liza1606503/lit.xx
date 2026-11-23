@@ -13,8 +13,8 @@ const footerSections = [
   {
     title: "Платформа",
     links: [
-      { href: "/exhibitions", label: "Поп-ап выставки" },
-      { href: "/leaderboard", label: "Рейтинг активности" },
+      { href: "/exhibitions", label: "Новости" },
+      { href: "/leaderboard", label: "Рейтинг" },
       { href: "/about", label: "О платформе" },
     ],
   },

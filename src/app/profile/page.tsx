@@ -77,9 +77,6 @@ export default async function ProfilePage() {
               <div className="font-display text-5xl text-primary">
                 {dbUser.totalPoints}
               </div>
-              <div className="mt-1 font-serif text-sm text-muted-foreground">
-                За все правильные ответы в микро-тестах
-              </div>
             </div>
 
             {/* Пройдено тестов */}
@@ -90,9 +87,6 @@ export default async function ProfilePage() {
               </div>
               <div className="font-display text-5xl text-accent">
                 {dbUser.testsPassed}
-              </div>
-              <div className="mt-1 font-serif text-sm text-muted-foreground">
-                Уникальных материалов с сохранённым результатом
               </div>
             </div>
 

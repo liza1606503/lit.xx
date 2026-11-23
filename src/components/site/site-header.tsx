@@ -11,8 +11,7 @@ import {
   IconContext,
   IconText,
   IconTelegraph,
-  IconExhibitions,
-  IconAbout,
+  IconNewspaper,
   IconUser,
   IconLogout,
   IconLogin,
@@ -27,8 +26,7 @@ const navItems = [
   { href: "/context", label: "В контексте", Icon: IconContext },
   { href: "/text", label: "В тексте", Icon: IconText },
   { href: "/telegraph", label: "В телеграфе", Icon: IconTelegraph },
-  { href: "/exhibitions", label: "Выставки", Icon: IconExhibitions },
-  { href: "/about", label: "О платформе", Icon: IconAbout },
+  { href: "/exhibitions", label: "Новости", Icon: IconNewspaper },
 ];
 
 export function SiteHeader() {
@@ -82,12 +80,12 @@ export function SiteHeader() {
         </nav>
 
         {/* Правая часть — пользователь */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/leaderboard"
             className={cn(
-              "flex items-center gap-1.5 border border-border px-2.5 py-1.5 font-sans-ui text-xs font-medium transition-colors hover:border-primary",
-              isActive("/leaderboard") && "border-primary bg-secondary",
+              "flex items-center gap-1.5 font-sans-ui text-xs font-medium transition-colors hover:text-primary",
+              isActive("/leaderboard") ? "text-primary" : "text-muted-foreground",
             )}
           >
             <IconTrophy size={14} />

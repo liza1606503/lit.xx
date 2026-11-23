@@ -6,10 +6,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-pt-sans);
-  --font-serif: var(--font-pt-serif);
-  --font-display: var(--font-ruslan);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ibm-sans);
+  --font-serif: var(--font-ibm-sans);
+  --font-display: var(--font-ibm-sans);
+  --font-mono: var(--font-ibm-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -136,24 +136,26 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-pt-serif), serif;
+    font-family: var(--font-ibm-sans), sans-serif;
     font-feature-settings: "kern", "liga";
   }
 }
 
-/* Типографика */
+/* Типографика — единый гротеск, весовая иерархия */
 .font-display {
-  font-family: var(--font-ruslan), var(--font-pt-serif), serif;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-family: var(--font-ibm-sans), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .font-serif {
-  font-family: var(--font-pt-serif), serif;
+  font-family: var(--font-ibm-sans), sans-serif;
+  font-weight: 400;
 }
 
 .font-sans-ui {
-  font-family: var(--font-pt-sans), sans-serif;
+  font-family: var(--font-ibm-sans), sans-serif;
+  font-weight: 500;
 }
 
 /* Текстура бумаги — едва заметная сетка */
@@ -215,7 +217,7 @@
   align-items: center;
   padding: 4px 10px;
   border: 1px solid var(--primary);
-  font-family: var(--font-pt-sans), sans-serif;
+  font-family: var(--font-ibm-sans), sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;

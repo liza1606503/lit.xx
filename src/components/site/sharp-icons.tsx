@@ -176,6 +176,14 @@ export function IconPlay(props: IconProps) {
   );
 }
 
+export function IconPause(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+    </svg>
+  );
+}
+
 export function IconBookText(props: IconProps) {
   return (
     <svg {...base(props)}>

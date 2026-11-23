@@ -5,7 +5,7 @@ import {
   IconText,
   IconTelegraph,
   IconFeed,
-  IconExhibitions,
+  IconNewspaper,
   IconTrophy,
   IconArrowRight,
   IconSparkle,
@@ -16,15 +16,14 @@ const sectionLinks = [
   { href: "/context", label: "В контексте", Icon: IconContext },
   { href: "/text", label: "В тексте", Icon: IconText },
   { href: "/telegraph", label: "В телеграфе", Icon: IconTelegraph },
-  { href: "/exhibitions", label: "Выставки", Icon: IconExhibitions },
-  { href: "/leaderboard", label: "Рейтинг", Icon: IconTrophy },
+  { href: "/exhibitions", label: "Новости", Icon: IconNewspaper },
 ];
 
 const typeBadge: Record<string, string> = {
   post: "В контексте",
   podcast: "В тексте",
   article: "В телеграфе",
-  "exhibition-report": "Пост-релиз",
+  "exhibition-report": "Новости",
 };
 
 export default function HomePage() {
@@ -88,12 +87,29 @@ export default function HomePage() {
                   </Link>
                 ))}
               </nav>
+
+              {/* Рейтинг — отдельно, без акцента */}
+              <Link
+                href="/leaderboard"
+                className="group mt-3 flex items-center justify-between border-t border-border pl-3 pt-3 text-muted-foreground transition-colors hover:text-primary"
+              >
+                <span className="flex items-center gap-2.5">
+                  <IconTrophy size={14} />
+                  <span className="font-sans-ui text-xs font-medium uppercase tracking-widest">
+                    Рейтинг
+                  </span>
+                </span>
+                <IconArrowRight
+                  size={12}
+                  className="opacity-50 transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Превью ленты */}
+      {/* Превью ленты — общая, без деления по разделам */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 py-14 md:px-6 md:py-20">
           <div className="mb-8 flex items-end justify-between border-b border-border pb-4">
@@ -118,12 +134,9 @@ export default function HomePage() {
                 key={post.id}
                 className="flex flex-col border border-border bg-card transition-colors hover:border-primary"
               >
-                <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
+                <div className="border-b border-border px-4 py-2.5">
                   <span className="tag-stamp tag-stamp-filled">
                     {typeBadge[post.type]}
-                  </span>
-                  <span className="font-sans-ui text-[10px] uppercase tracking-widest text-muted-foreground">
-                    {post.cadence}
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col gap-2 p-5">
