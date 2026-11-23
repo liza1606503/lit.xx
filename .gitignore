@@ -52,3 +52,27 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# --- Проектные исключения ---
+# База данных SQLite (генерируется через prisma db push, не коммитится)
+/db/*.db
+/db/*.db-journal
+*.db-wal
+*.db-shm
+
+# Скриншоты и рабочие артефакты проверки
+/scripts/
+
+# Песочница: deliverables и загруженные пользователем файлы
+/download/
+/upload/
+
+# Платформенные скрипты песочницы z.ai (не относятся к приложению)
+/.zscripts/
+/mini-services/
+/tests/
+/Caddyfile
+*.pid
+
+# Примеры из шаблона (не используются в приложении)
+/examples/
