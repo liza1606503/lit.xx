@@ -37,6 +37,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# временные файлы с секретами (никогда не коммитить)
+*.tmp
+.turso_db_*
+.nextauth_secret*
+
 
 # typescript
 *.tsbuildinfo

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -14,7 +14,7 @@ import {
   IconArrowDown,
 } from "@/components/site/sharp-icons";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") ?? "/";
@@ -147,5 +147,23 @@ export default function LoginPage() {
         ← Вернуться на главную
       </Link>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  // useSearchParams требует Suspense-границы для статической prerender-генерации,
+  // иначе `next build` падает с "useSearchParams() should be wrapped in a suspense boundary".
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-md flex-col justify-center px-4 py-12">
+          <div className="border-2 border-primary bg-card p-12 text-center font-sans-ui text-xs uppercase tracking-widest text-muted-foreground">
+            Загрузка…
+          </div>
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }
